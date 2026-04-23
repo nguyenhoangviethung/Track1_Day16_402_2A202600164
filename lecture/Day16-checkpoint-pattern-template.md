@@ -218,3 +218,136 @@ Trong 6 mắt xích (Idea -> Customer -> Need -> Strategy -> Moat -> Market Size
 Lý do và kế hoạch cải thiện trong Day 17:
 
 > ...
+
+---
+
+## 6) Prompt Playbook - Thực hành Handbook hiệu quả
+
+Nguyên tắc dùng prompt trong Day 16:
+- Dùng English-only khi critique logic và market sizing để giữ ngữ nghĩa ổn định.
+- AI chỉ hỗ trợ critique, so sánh, rewrite rõ hơn, estimate có giả định.
+- Team chịu trách nhiệm nội dung cuối: hiểu, kiểm chứng, và bảo vệ được.
+
+### 6.1 Quy trình chạy prompt chuẩn (5 bước)
+
+1. Chốt draft v1 gồm: customer, needs, strategy, moat.
+2. Chạy Structured Critique Prompt để bóc điểm yếu logic.
+3. Gắn nhãn từng góp ý: `accept` / `reject` / `partial` và ghi lý do.
+4. Team tự viết lại bản v2 (không copy nguyên văn AI rewrite).
+5. Chạy TAM/SAM/SOM Prompt trên bản v2 để ra market view ban đầu.
+
+### 6.2 Prompt 1 - Structured Critique (copy/paste)
+
+```text
+Review this Day 16 draft.
+
+For each issue, return:
+1. issue name
+2. evidence from the draft
+3. why it is weak
+4. rewrite suggestion
+
+Check these 5 issues:
+- customer too broad
+- need is actually a solution
+- lack of evidence
+- strategy too generic
+- moat too weak
+
+Important:
+Do not add imaginary facts.
+
+Draft:
+[paste idea + customer + needs + strategy + moat here]
+```
+
+Output team nên ghi lại sau mỗi lần chạy:
+- Issue:
+- Decision: `accept` / `reject` / `partial`
+- Reason:
+- Edit applied:
+
+### 6.3 Prompt 2 - TAM / SAM / SOM (copy/paste)
+
+```text
+You are helping an early-stage AI product team estimate market potential.
+
+Based on the following inputs:
+- target customer segment
+- underserved need
+- product strategy
+- geography
+- pricing logic if available
+
+Please produce:
+1. a TAM estimate with explicit assumptions
+2. a SAM estimate for the chosen segment and scope
+3. a SOM estimate for a realistic near-term capture
+4. key unknowns that require further research
+5. a final judgment: is this market worth pursuing now?
+
+Important rules:
+- do not invent precise numbers without assumptions
+- show the estimation logic clearly
+- use ranges when uncertainty is high
+- separate facts from assumptions
+
+Inputs:
+[paste your customer + need + strategy + geography + pricing here]
+```
+
+Minimum output cần có:
+- TAM: range + logic
+- SAM: number/range + logic
+- SOM: realistic near-term target + key assumptions
+- Top 3 unknowns cần research thêm
+- Judgment: `worth pursuing now` / `worth pursuing but not now` / `not worth pursuing as framed`
+
+### 6.4 Prompt bổ sung (optional)
+
+Rewrite need theo JTBD:
+
+```text
+Rewrite the following need using the JTBD formula:
+"When [situation], I want [motivation], so I can [desired outcome]."
+
+Make the situation concrete and observable.
+Make the outcome a business or operational consequence.
+Do not add assumptions not present in the original.
+
+Original need:
+[paste need here]
+```
+
+So sánh 2 segment alternatives:
+
+```text
+Compare these two candidate customer segments for an early-stage AI product.
+
+For each, score 1-5 on:
+- specificity
+- pain intensity
+- operational visibility
+- reachability
+- packaging feasibility
+
+Then recommend which one to pursue first and explain the trade-off.
+
+Segment A: [...]
+Segment B: [...]
+```
+
+### 6.5 Prompt QA checklist (trước khi chốt output)
+
+- [ ] Facts vs Assumptions vs Unknowns đã tách rõ chưa?
+- [ ] Có câu nào AI bịa evidence/fact không? Nếu có, xóa ngay.
+- [ ] Có con số nào quá chính xác nhưng thiếu logic không?
+- [ ] Có đoạn nào nghe hay nhưng không dẫn tới decision/action không?
+- [ ] Team có thể giải thích và bảo vệ từng ý trong 2 phút không?
+
+### 6.6 Anti-patterns cần tránh
+
+- Dùng AI để quyết định chiến lược thay team.
+- Để AI invent customer facts hoặc invent evidence.
+- Chạy theo polished wording thay vì logic kiểm chứng được.
+- Chốt market size bằng một con số duy nhất, không có range/assumptions.
